@@ -55,7 +55,7 @@ header h1 {
 }
 
 header h1::before {
-  content: "📡";
+  content: "";
   margin-right: .5rem;
 }
 
@@ -151,8 +151,8 @@ main {
   opacity: .9;
 }
 
-#cardSuhu h2::before { content: "🌡️ "; }
-#cardHum  h2::before { content: "💧 "; }
+#cardSuhu h2::before { content: " "; }
+#cardHum  h2::before { content: " "; }
 
 .card .value {
   margin: .5rem 0 .25rem;
