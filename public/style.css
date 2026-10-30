@@ -1,34 +1,281 @@
 :root {
-  --bg: #f1f5f9; --surface: #ffffff; --text: #0f172a; --muted: #64748b;
-  --navy: #1e3a5f; --ok: #16a34a; --hot: #dc2626; --border: #e2e8f0;
-}
-* { box-sizing: border-box; }
-body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
-header { background: var(--navy); color: #fff; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
-header h1 { margin: 0; font-size: 1.25rem; }
-main { max-width: 1000px; margin: 0 auto; padding: 1.5rem; display: grid; gap: 1.25rem; }
+  --bg: #eef2f7;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
 
-.badge { padding: .3rem .8rem; border-radius: 999px; font-size: .85rem; font-weight: 600; color: #fff; }
-.badge.online { background: var(--ok); }
+  --navy: #1e3a5f;
+  --navy-dark: #12263f;
+  --blue: #2563eb;
+  --ok: #16a34a;
+  --ok-dark: #15803d;
+  --hot: #dc2626;
+  --hot-dark: #b91c1c;
+
+  --radius: 16px;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, .06), 0 1px 3px rgba(15, 23, 42, .08);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, .10);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background:
+    radial-gradient(1000px 400px at 100% -10%, rgba(37, 99, 235, .10), transparent 60%),
+    var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ---------- Header ---------- */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+  box-shadow: 0 4px 16px rgba(18, 38, 63, .25);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+header h1::before {
+  content: "📡";
+  margin-right: .5rem;
+}
+
+/* ---------- Badge status perangkat ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .35rem .9rem;
+  border-radius: 999px;
+  font-size: .85rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, .15);
+  transition: background .3s;
+}
+
+.badge::before {
+  content: "";
+  width: .6rem;
+  height: .6rem;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.badge.online  { background: var(--ok); }
 .badge.offline { background: var(--hot); }
 
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
-.card { background: var(--ok); color: #fff; border-radius: 14px; padding: 1.25rem; transition: background .3s; }
-.card.hot { background: var(--hot); }
-.card#cardHum { background: var(--navy); }
-.card h2 { margin: 0; font-size: 1rem; font-weight: 500; opacity: .9; }
-.card .value { font-size: 2.75rem; font-weight: 700; margin: .4rem 0; }
-.card .status { margin: 0; font-weight: 600; }
-.card .time { margin: .5rem 0 0; font-size: .8rem; opacity: .85; }
+.badge.online::before {
+  animation: pulse 1.6s infinite;
+}
 
-.stats { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.25rem; display: grid; gap: .4rem; font-size: .9rem; color: var(--muted); }
-.stats strong { color: var(--text); }
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 255, 255, .7); }
+  70%  { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
 
-.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; }
-.panel h2 { margin: 0 0 1rem; font-size: 1.05rem; }
-.chart-wrap { position: relative; height: 300px; }
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-th { background: var(--navy); color: #fff; text-align: left; padding: .6rem .75rem; }
-td { padding: .55rem .75rem; border-bottom: 1px solid var(--border); }
+/* ---------- Layout utama ---------- */
+main {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* ---------- Kartu nilai ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--ok), var(--ok-dark));
+  box-shadow: var(--shadow-md);
+  transition: background .4s, transform .2s, box-shadow .2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, .18);
+}
+
+/* lingkaran dekoratif */
+.card::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+}
+
+.card.hot { background: linear-gradient(135deg, var(--hot), var(--hot-dark)); }
+
+.card#cardHum { background: linear-gradient(135deg, var(--blue), var(--navy)); }
+
+.card h2 {
+  margin: 0;
+  font-size: .95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  opacity: .9;
+}
+
+#cardSuhu h2::before { content: "🌡️ "; }
+#cardHum  h2::before { content: "💧 "; }
+
+.card .value {
+  margin: .5rem 0 .25rem;
+  font-size: 3.25rem;
+  font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.card .value span { letter-spacing: -1px; }
+
+.card .status {
+  display: inline-block;
+  min-height: 1.6rem;
+  margin: 0;
+  padding: .1rem .7rem;
+  border-radius: 999px;
+  font-size: .85rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, .2);
+}
+
+#cardHum .status { background: transparent; }
+
+.card .time {
+  margin: .9rem 0 0;
+  font-size: .8rem;
+  opacity: .85;
+}
+
+/* ---------- Ringkasan statistik ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: .75rem 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+.stats strong {
+  display: block;
+  margin-bottom: .15rem;
+  color: var(--text);
+}
+
+.stats span {
+  font-weight: 600;
+  color: var(--navy);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Panel (grafik & tabel) ---------- */
+.panel {
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.panel h2 {
+  margin: 0 0 1rem;
+  padding-left: .75rem;
+  font-size: 1.05rem;
+  border-left: 4px solid var(--blue);
+}
+
+.chart-wrap {
+  position: relative;
+  height: 320px;
+}
+
+/* ---------- Tabel ---------- */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+
+th {
+  padding: .75rem 1rem;
+  text-align: left;
+  font-size: .78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #fff;
+  background: var(--navy);
+  white-space: nowrap;
+}
+
+td {
+  padding: .7rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+tbody tr:last-child td { border-bottom: none; }
 tbody tr:nth-child(even) { background: #f8fafc; }
+tbody tr:hover { background: #eaf1fb; }
+
+/* ---------- Responsif ---------- */
+@media (max-width: 600px) {
+  header { padding: .85rem 1rem; }
+  header h1 { font-size: 1.05rem; }
+  main { padding: 1rem; gap: 1rem; }
+  .card .value { font-size: 2.6rem; }
+  .chart-wrap { height: 260px; }
+  .panel { padding: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
