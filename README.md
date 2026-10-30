@@ -1,9 +1,17 @@
-IoT Greenhouse Monitoring SystemSistem pemantauan suhu dan kelembapan berbasis IoT (Internet of Things) yang mengintegrasikan pengiriman data sensor (ESP32/Simulator), backend REST API (Node.js & Express), penyimpanan database persisten (SQLite), serta visualisasi dashboard web secara real-time. 
-Anggota :
-Alif Zaky Lutfiansyah [E41240975]
-Muhammad Rizky Hillan Al Farizy [E41240977]
-Yanuar Akbar Ahmadani [E41241000]
-Zafar Muhammad Nur Ridwan [E41241092]
+# IoT Greenhouse Monitoring System
+
+Sistem pemantauan suhu dan kelembapan berbasis IoT (Internet of Things) yang mengintegrasikan:
+
+- Pengiriman data sensor (ESP32 atau simulator)
+- Backend REST API (Node.js dan Express)
+- Penyimpanan database persisten (SQLite)
+- Visualisasi dashboard web secara real-time
+
+## Anggota Kelompok
+| 1 | Alif Zaky Lutfiansyah | E41240975 |
+| 2 | Muhammad Rizky Hillan Al Farizy | E41240977 |
+| 3 | Yanuar Akbar Ahmadani | E41241000 |
+| 4 | Zafar Muhammad Nur Ridwan | E41241092 |
 
 ## Endpoint REST API
 
