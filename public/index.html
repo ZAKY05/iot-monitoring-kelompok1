@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monitoring IoT - Suhu & Kelembapan</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Monitoring IoT</h1>
+    <span id="deviceStatus" class="badge offline">Offline</span>
+  </header>
+
+  <main>
+    <section class="cards">
+      <div class="card" id="cardSuhu">
+        <h2>Suhu</h2>
+        <p class="value"><span id="suhuValue">--</span> °C</p>
+        <p class="status" id="suhuStatus">-</p>
+        <p class="time">Diperbarui: <span id="suhuTime">-</span></p>
+      </div>
+      <div class="card" id="cardHum">
+        <h2>Kelembapan</h2>
+        <p class="value"><span id="humValue">--</span> %</p>
+        <p class="status">&nbsp;</p>
+        <p class="time">Diperbarui: <span id="humTime">-</span></p>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div><strong>Suhu</strong> rata-rata <span id="sAvg">-</span> | min <span id="sMin">-</span> | maks <span id="sMax">-</span></div>
+      <div><strong>Kelembapan</strong> rata-rata <span id="hAvg">-</span> | min <span id="hMin">-</span> | maks <span id="hMax">-</span></div>
+    </section>
+
+    <section class="panel">
+      <h2>Grafik 20 Data Terakhir</h2>
+      <div class="chart-wrap"><canvas id="chart"></canvas></div>
+    </section>
+
+    <section class="panel">
+      <h2>Riwayat 10 Data Terakhir</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>ID</th><th>Perangkat</th><th>Suhu (°C)</th><th>Kelembapan (%)</th><th>Waktu</th></tr>
+          </thead>
+          <tbody id="tbody"><tr><td colspan="5">Memuat data...</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
